@@ -84,8 +84,7 @@ export default class AtlasWorker extends PeriodicWorker {
 
   async tryWithChallenge(challenge) {
     try {
-
-      await this.addLog(`TEST_DEBUG: tryWithChallenge ${challenge.challengeId} resolution`, {bundleMetadata}, {challenge});
+      await this.addLog(`TEST_DEBUG: tryWithChallenge resolution`, {bundleMetadata}, {challenge});
 
       if (this.failedChallengesCache.didChallengeFailRecently(challenge.challengeId)) {
         return false;
@@ -101,7 +100,7 @@ export default class AtlasWorker extends PeriodicWorker {
         await this.addLog('Challenge resolution cancelled', challenge);
         return false;
       }
-      await this.addLog(`TEST_DEBUG: Will start challange ${challenge.challengeId} resolution`, {bundleMetadata});
+      await this.addLog(`TEST_DEBUG: Will start challange resolution`, {bundleMetadata}, {challenge});
       await this.tryToResolve(bundleMetadata, challenge);
       await this.strategy.afterChallengeResolution(challenge);
       this.atlasChallengeMetrics.inc({status: atlasChallengeStatus.resolved});
